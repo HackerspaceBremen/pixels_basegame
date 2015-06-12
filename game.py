@@ -27,12 +27,17 @@ class Basegame:
 
         self.ledDisplay = led.dsclient.DisplayServerClientDisplay('localhost', 8123, fallback_size)
 
+        pygame.font.init()
+        self.font_text = pygame.font.SysFont(None, 18)
+
         # use same size for sim and real LED panel
         size = self.ledDisplay.size()
         self.simDisplay = led.sim.SimDisplay(size)
         self.screen = pygame.Surface(size)
 
         self.ticks = 0
+        self.fps = 30
+        self.gameover = False
 
     # Draws the surface onto the display(s)
     def update_screen(self, surface):
@@ -54,7 +59,7 @@ class Basegame:
         screen.blit(pixel, (random.randint(0, 89), random.randint(0, 19)))
 
         # Print fps
-        if ticks % 30 == 0:
+        if ticks % self.fps == 0:
             print self.clock.get_fps()
 
 
@@ -63,8 +68,7 @@ class Basegame:
         screen = self.screen
 
         # Show loading message
-        pygame.font.init()
-        font_text = pygame.font.SysFont(None, 18)
+        font_text = self.font_text
 
         write_lobby = font_text.render("Basegame", True, WHITE)
 
@@ -76,9 +80,8 @@ class Basegame:
         # Clear event list before starting the game
         pygame.event.clear()
 
-        gameover = False
-
-        while not gameover:
+        # Start of the gameloop
+        while not self.gameover:
 
             # Process event queue
             for pgevent in pygame.event.get():
@@ -90,7 +93,7 @@ class Basegame:
 
                 # End the game
                 if event.button == EXIT:
-                    gameover = True
+                    self.gameover = True
 
                 # Keypresses on keyboard and joystick axis motions / button presses
                 elif event.player == PLAYER1:
@@ -138,7 +141,7 @@ class Basegame:
             self.update_screen(screen)
 
             # Tick the clock and pass the maximum fps
-            self.clock.tick(30)
+            self.clock.tick(self.fps)
 
         # End of the game
         write_gameover = font_text.render("GAME OVER", True, WHITE)
