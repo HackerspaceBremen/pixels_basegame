@@ -2,6 +2,9 @@
 An example that can be used to create a new pixels game.
 
 ### How to use
+Create a new, empty repository, clone it and execute `git pull https://github.com/HackerspaceBremen/pixels_basegame.git` (You could just fork this repository, but you can only do that once)
+Change the `README.md` and `pixels_info.json` and you can start coding!
+
 You'll probably need to add code at three locations:
 
 #### init
