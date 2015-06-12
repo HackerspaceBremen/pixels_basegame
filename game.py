@@ -7,7 +7,7 @@ from Colors import *
 from led.PixelEventHandler import *
 import random
 
-""" https://github.com/jh0ker/pixels_basegame
+""" https://github.com/HackerspaceBremen/pixels_basegame
     depends on https://github.com/HackerspaceBremen/pygame-ledpixels
 """
 
