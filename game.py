@@ -61,6 +61,54 @@ class Basegame:
         # Print fps
         if ticks % self.fps == 0:
             print self.clock.get_fps()
+            
+    # Process event queue
+    def process_event_queue(self):
+    
+        for pgevent in pygame.event.get():
+            if pgevent.type == QUIT:
+                pygame.quit()
+                sys.exit()
+
+            event = process_event(pgevent)
+
+            # End the game
+            if event.button == EXIT:
+                self.gameover = True
+
+            # Keypresses on keyboard and joystick axis motions / button presses
+            if event.player == PLAYER1:
+                if event.type == PUSH:
+                    # Joysticks
+                    if event.button == UP:
+                        pass
+                    elif event.button == DOWN:
+                        pass
+                    elif event.button == RIGHT:
+                        pass
+                    elif event.button == LEFT:
+                        pass
+
+                    # Buttons
+                    elif event.button == B1:
+                        pass
+                    elif event.button == B2:
+                        pass
+                    elif event.button == B3:
+                        pass
+                # Same stuff here
+                elif event.type == RELEASE:
+                    pass
+
+            # Same stuff here
+            elif event.player == PLAYER2:
+                pass
+
+            # Player buttons
+            elif event.button == P1:
+                pass
+            elif event.button == P2:
+                pass
 
 
     def main(self):
@@ -83,61 +131,13 @@ class Basegame:
         # Start of the gameloop
         while not self.gameover:
 
-            # Process event queue
-            for pgevent in pygame.event.get():
-                if pgevent.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+            # Check controls
+            self.process_event_queue()
 
-                event = process_event(pgevent)
-
-                # End the game
-                if event.button == EXIT:
-                    self.gameover = True
-
-                # Keypresses on keyboard and joystick axis motions / button presses
-                elif event.player == PLAYER1:
-                    if event.type == PUSH:
-                        # Joysticks
-                        if event.button == UP:
-                            pass
-                        elif event.button == DOWN:
-                            pass
-                        elif event.button == RIGHT:
-                            pass
-                        elif event.button == LEFT:
-                            pass
-
-                        # Buttons
-                        elif event.button == B1:
-                            pass
-                        elif event.button == B2:
-                            pass
-                        elif event.button == B3:
-                            pass
-                    # Same stuff here
-                    elif event.type == RELEASE:
-                        pass
-
-                # Same stuff here
-                elif event.player == PLAYER2:
-                    pass
-
-                # Player buttons
-                elif event.button == P1:
-                    pass
-                elif event.button == P2:
-                    pass
-
-            ''' Draw stuff here
-            '''
-
+            # Call update method
             self.update()
 
-            '''
-            '''
-
-            # Update screen
+            # Send screen to display
             self.update_screen(screen)
 
             # Tick the clock and pass the maximum fps
